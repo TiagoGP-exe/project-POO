@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="htpps://www.w3.org/1999/xhtml"
 xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
 	<title>Insert Title here</title>
@@ -8,14 +9,16 @@ xmlns:th="http://www.thymeleaf.org"
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
-
-<nav class="navbar navbar-dark bg-primary pl-2">
-	<a class=" ml-5">
-		<img  class=" ml-5" src="/images/logo.png" width="50" heigth="50" alt="IFMT" />
-	</a>
-</nav>
 	
-	<form action="/titulos" method="POST" class="card gy-5">
+	<header th:replace="Cabecalho"></header>
+	
+	<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${#fields.hasAnyErrors()}">
+		<div th:each="detailError : ${#fields.detailedErrors()}">
+			<span th:text="${detailedError.message}"></span>
+		</div>
+	</div>
+	
+	<form action="/titulos" method="POST" th:object="${titulo}" class="card gy-5">
 		<div class="alert alert-success alert-dismissible" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
 			<span th:text="${mensagem}">Salvo com sucesso!</span>

@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+
 
 @Entity
 @Table(name = "titulo")
@@ -41,10 +43,15 @@ public class Titulo {
 	private String descricao;
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
+	@NotNull
 	@NumberFormat(pattern="#,##0.00")
 	private BigDecimal valor;
 	@Enumerated(EnumType.STRING)
 	private StatusTitulo status;
+	
+	public boolean isPendente() {
+		return StatusTitulo.PENDENTE.equals(this.status);
+	}
 	
 	public Date getDataVencimento() {
 		return dataVencimento;
